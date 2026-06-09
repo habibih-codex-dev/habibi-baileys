@@ -1,10 +1,16 @@
 name: Publish to NPM
 
-# Jalan otomatis tiap kamu push tag versi baru, contoh: v1.0.0, v1.2.3
+# Bisa di-trigger 3 cara:
+#  1. Push tag versi baru (contoh: v1.0.0, v1.2.3)  -> rilis otomatis
+#  2. Bikin GitHub Release                          -> rilis otomatis
+#  3. Tombol "Run workflow" di tab Actions          -> rilis manual (tanpa terminal)
 on:
   push:
     tags:
       - 'v*'
+  release:
+    types: [published]
+  workflow_dispatch:
 
 jobs:
   publish:
@@ -26,7 +32,8 @@ jobs:
       - name: Install dependencies
         run: npm install --no-audit --no-fund
 
-      - name: Cek versi package.json == tag git
+      - name: Cek versi package.json == tag git (cuma pas dipicu lewat tag)
+        if: github.ref_type == 'tag'
         run: |
           PKG_VERSION="v$(node -p "require('./package.json').version")"
           TAG_VERSION="${GITHUB_REF_NAME}"

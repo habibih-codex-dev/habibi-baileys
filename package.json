@@ -1,0 +1,56 @@
+{
+  "name": "habibi-baileys",
+  "version": "1.0.0",
+  "description": "Custom wrapper modular di atas Baileys: pesan interaktif (Button/List/Carousel via protobuf), message serializer, auto-reconnect, pairing code 8 digit, dan anti memory leak. Dual package (CommonJS + ESM).",
+  "type": "commonjs",
+  "main": "./lib/index.js",
+  "module": "./esm/index.mjs",
+  "types": "./types/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./types/index.d.ts",
+      "import": "./esm/index.mjs",
+      "require": "./lib/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "lib",
+    "esm",
+    "types",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "example": "node example/bot.js",
+    "lint": "node --check lib/index.js",
+    "test": "node --test"
+  },
+  "keywords": [
+    "whatsapp",
+    "baileys",
+    "whatsapp-bot",
+    "wa-bot",
+    "button-message",
+    "list-message",
+    "carousel",
+    "interactive-message",
+    "pairing-code",
+    "multi-device",
+    "esm",
+    "commonjs"
+  ],
+  "author": "",
+  "license": "MIT",
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "dependencies": {
+    "@whiskeysockets/baileys": "^7.0.0-rc.13",
+    "pino": "^9.5.0",
+    "qrcode-terminal": "^0.12.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

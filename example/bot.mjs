@@ -3,7 +3,7 @@
  * Jalanin: node example/bot.mjs
  */
 
-import { createBot } from '../esm/index.mjs'; // di project lu: from 'habibi-baileys'
+import { createBot } from '../esm/index.mjs'; // di project lu: from 'habibi-cloud-baileys'
 
 const bot = await createBot({
   authFolder: './auth',
@@ -19,7 +19,7 @@ bot.on('message', async (m, sock) => {
   if (m.body.toLowerCase() === 'menu') {
     await sock.sendButton(m.from, {
       text: 'Halo dari ESM 👋',
-      footer: 'habibi-baileys',
+      footer: 'habibi-cloud-baileys',
       buttons: [{ type: 'reply', text: 'Tes', id: 'tes' }],
     }, { quoted: m.raw });
   }

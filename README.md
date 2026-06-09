@@ -1,4 +1,4 @@
-# habibi-baileys
+# habibi-cloud-baileys
 
 Custom wrapper modular di atas [Baileys](https://github.com/WhiskeySockets/Baileys) buat bikin bot WhatsApp. Dirancang sebagai **core engine** project bot modular dan siap dipublish ke NPM.
 
@@ -14,7 +14,7 @@ Custom wrapper modular di atas [Baileys](https://github.com/WhiskeySockets/Baile
 ## Instalasi
 
 ```bash
-npm install habibi-baileys
+npm install habibi-cloud-baileys
 ```
 
 > Base engine: **`@whiskeysockets/baileys@^7.0.0-rc.13`** (v7 RC). `pino` & `qrcode-terminal` ikut ke-install. Butuh **Node.js >= 20**.
@@ -38,7 +38,7 @@ BAILEYS_PACKAGE=baileys node index.js
 ### CommonJS
 
 ```js
-const { createBot } = require('habibi-baileys');
+const { createBot } = require('habibi-cloud-baileys');
 
 const bot = await createBot({ authFolder: './auth', printQR: true });
 
@@ -51,7 +51,7 @@ bot.on('message', async (m, sock) => {
 ### ES Modules
 
 ```js
-import { createBot } from 'habibi-baileys';
+import { createBot } from 'habibi-cloud-baileys';
 
 const bot = await createBot({ authFolder: './auth' });
 bot.on('message', (m) => console.log(m.sender, ':', m.body));
@@ -135,7 +135,7 @@ Kombinasi itulah yang bikin server WhatsApp mau me-render tombolnya. Kalau tetap
 
 ```bash
 npm login
-# ganti "name" di package.json kalau "habibi-baileys" udah dipakai orang
+# ganti "name" di package.json kalau "habibi-cloud-baileys" udah dipakai orang
 npm publish
 ```
 

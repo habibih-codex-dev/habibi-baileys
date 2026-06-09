@@ -8,7 +8,7 @@
  * pairing code 8 digit (tanpa scan QR).
  */
 
-const { createBot } = require('..'); // di project lu: require('habibi-baileys')
+const { createBot } = require('..'); // di project lu: require('habibi-cloud-baileys')
 
 const USE_PAIRING = false;
 const PHONE_NUMBER = '628xxxxxxxxxx'; // format internasional tanpa tanda +
@@ -61,7 +61,7 @@ async function main() {
           await m.reply('pong 🏓 (dari pilihan list)');
           break;
         case 'menu_info':
-          await m.reply('habibi-baileys — core engine bot WhatsApp modular.');
+          await m.reply('habibi-cloud-baileys — core engine bot WhatsApp modular.');
           break;
         case 'beli_a':
           await m.reply('Kamu pilih *Produk A* ✅. Pesanan diproses!');
@@ -87,7 +87,7 @@ async function main() {
     if (cmd === 'button') {
       await sock.sendButton(m.from, {
         text: 'Pilih salah satu tombol:',
-        footer: 'habibi-baileys',
+        footer: 'habibi-cloud-baileys',
         buttons: [
           { type: 'reply', text: 'Halo', id: 'cmd_halo' },
           { type: 'url', text: 'Buka GitHub', url: 'https://github.com' },
@@ -99,7 +99,7 @@ async function main() {
     if (cmd === 'list') {
       await sock.sendList(m.from, {
         text: 'Menu utama bot:',
-        footer: 'habibi-baileys',
+        footer: 'habibi-cloud-baileys',
         buttonText: 'Lihat Menu',
         sections: [
           {
@@ -116,7 +116,7 @@ async function main() {
     if (cmd === 'carousel') {
       await sock.sendCarousel(m.from, {
         text: 'Geser kartunya 👇',
-        footer: 'habibi-baileys',
+        footer: 'habibi-cloud-baileys',
         cards: [
           {
             title: 'Produk A',

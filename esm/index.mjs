@@ -1,16 +1,16 @@
 /**
- * habibi-baileys
+ * habibi-cloud-baileys
  * --------------------
  * Wrapper ESM. Core library ditulis dalam CommonJS, file ini jembatan supaya
  * bisa di-`import` dengan named export yang rapi.
  *
- *   import { createBot, sendButton } from 'habibi-baileys';
+ *   import { createBot, sendButton } from 'habibi-cloud-baileys';
  *
  * Catatan v7: util mentah Baileys (proto, DisconnectReason, jidNormalizedUser,
  * dll) TIDAK di-export statis di sini, karena nilainya baru tersedia setelah
  * Baileys dimuat (berpotensi ESM-only). Ambil lewat:
  *
- *   import { loadBaileys, getBaileys } from 'habibi-baileys';
+ *   import { loadBaileys, getBaileys } from 'habibi-cloud-baileys';
  *   const B = await loadBaileys();
  *   B.proto; B.DisconnectReason; // dst
  */

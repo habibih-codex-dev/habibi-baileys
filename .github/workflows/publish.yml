@@ -1,0 +1,42 @@
+name: Publish to NPM
+
+# Jalan otomatis tiap kamu push tag versi baru, contoh: v1.0.0, v1.2.3
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write # buat npm provenance (opsional tapi bagus)
+
+    steps:
+      - name: Checkout kode
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Install dependencies
+        run: npm install --no-audit --no-fund
+
+      - name: Cek versi package.json == tag git
+        run: |
+          PKG_VERSION="v$(node -p "require('./package.json').version")"
+          TAG_VERSION="${GITHUB_REF_NAME}"
+          echo "package.json: $PKG_VERSION | tag: $TAG_VERSION"
+          if [ "$PKG_VERSION" != "$TAG_VERSION" ]; then
+            echo "::error::Versi di package.json ($PKG_VERSION) nggak cocok sama tag ($TAG_VERSION). Update dulu versinya."
+            exit 1
+          fi
+
+      - name: Publish ke NPM
+        run: npm publish --provenance --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

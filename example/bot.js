@@ -30,6 +30,54 @@ async function main() {
 
   bot.on('message', async (m, sock) => {
     if (m.fromMe || !m.body) return;
+
+    // ============================================================
+    // HANDLER KLIK TOMBOL (button / list / carousel)
+    // ============================================================
+    // Pas user nge-klik tombol, WhatsApp ngirim balik "response message".
+    // Serializer kita otomatis ekstrak ID tombolnya ke `m.body`, dan
+    // `m.type` jadi salah satu tipe response di bawah ini.
+    //
+    // CATATAN: cuma tombol "reply" (quick_reply) & pilihan "list" yang
+    // ngirim balik respon ke bot. Tombol "url" & "call" cuma buka link/
+    // telepon di HP user, jadi BOT NGGAK NERIMA apa-apa dari situ.
+    // Tombol "copy" juga umumnya nggak ngirim balik.
+    const RESPONSE_TYPES = [
+      'interactiveResponseMessage', // native flow (button/list/carousel modern)
+      'buttonsResponseMessage',     // button gaya lama
+      'listResponseMessage',        // list gaya lama
+      'templateButtonReplyMessage', // template button
+    ];
+
+    if (RESPONSE_TYPES.includes(m.type)) {
+      const id = m.body; // ID tombol yang diklik (udah diekstrak serializer)
+      console.log(`[KLIK] user ${m.sender} klik tombol id="${id}" (type=${m.type})`);
+
+      switch (id) {
+        case 'cmd_halo':
+          await m.reply('Halo juga! 👋 Kamu barusan klik tombol "Halo".');
+          break;
+        case 'menu_ping':
+          await m.reply('pong 🏓 (dari pilihan list)');
+          break;
+        case 'menu_info':
+          await m.reply('habibi-baileys — core engine bot WhatsApp modular.');
+          break;
+        case 'beli_a':
+          await m.reply('Kamu pilih *Produk A* ✅. Pesanan diproses!');
+          break;
+        case 'beli_b':
+          await m.reply('Kamu pilih *Produk B* ✅. Pesanan diproses!');
+          break;
+        default:
+          await m.reply(`Kamu klik tombol dengan id: *${id}*`);
+      }
+      return; // stop di sini biar klik nggak ikut diproses sebagai command teks
+    }
+
+    // ============================================================
+    // HANDLER COMMAND TEKS BIASA
+    // ============================================================
     const cmd = m.body.trim().toLowerCase();
 
     if (cmd === 'ping') {
@@ -57,8 +105,8 @@ async function main() {
           {
             title: 'Umum',
             rows: [
-              { title: 'Ping', description: 'Cek bot hidup', id: 'ping' },
-              { title: 'Info', description: 'Info bot', id: 'info' },
+              { title: 'Ping', description: 'Cek bot hidup', id: 'menu_ping' },
+              { title: 'Info', description: 'Info bot', id: 'menu_info' },
             ],
           },
         ],
